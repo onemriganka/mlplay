@@ -4,7 +4,7 @@ import os
 
 VERSION = '0.0.0'
 DESCRIPTION = 'mlplay'
-LONG_DESCRIPTION = 'highlevel ml codes'
+LONG_DESCRIPTION = 'highlevel ml code'
 
 # Setting up
 setup(
