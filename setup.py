@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
-VERSION = '0.0.0'
+VERSION = '0.0.3'
 DESCRIPTION = 'mlplay'
 LONG_DESCRIPTION = 'highlevel ml code'
 
