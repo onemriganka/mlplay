@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
-VERSION = '0.0.3'
+VERSION = '0.0.4'
 DESCRIPTION = 'mlplay'
 LONG_DESCRIPTION = 'highlevel ml code'
 
@@ -16,7 +16,7 @@ setup(
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
-    install_requires=[],
+    install_requires=["torch","matplotlib","torchvision"],
     keywords=[ 'ml','onemriganka','codes'],
     classifiers=[
         "Development Status :: 1 - Planning",
