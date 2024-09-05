@@ -4,7 +4,7 @@ import os
 
 VERSION = '0.0.5'
 DESCRIPTION = 'mlplay'
-LONG_DESCRIPTION = 'highlevel ml code'
+LONG_DESCRIPTION = 'radip development of models '
 
 # Setting up
 setup(
