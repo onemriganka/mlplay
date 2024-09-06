@@ -22,15 +22,21 @@ def load_pretrained_vit(num_classes, device):
 
     return model, pretrained_vit_weights.transforms()
 
-def create_dataloaders(train_dir, test_dir, transform, batch_size=32):
+def create_dataloaders(train_dir=None, test_dir=None, transform=None, batch_size=32):
     """Create and return DataLoader objects for training and testing datasets."""
     NUM_WORKERS = os.cpu_count()
 
-    train_data = datasets.ImageFolder(train_dir, transform=transform)
-    test_data = datasets.ImageFolder(test_dir, transform=transform)
+    if train_dir:
+        train_data = datasets.ImageFolder(train_dir, transform=transform)
+        train_dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=NUM_WORKERS)
+    else:
+        train_dataloader = None
 
-    train_dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=NUM_WORKERS)
-    test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=False, num_workers=NUM_WORKERS)
+    if test_dir:
+        test_data = datasets.ImageFolder(test_dir, transform=transform)
+        test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=False, num_workers=NUM_WORKERS)
+    else:
+        test_dataloader = None
 
     return train_dataloader, test_dataloader
 
@@ -42,7 +48,7 @@ def train_model(train_dir, class_names, batch_size=32, lr=1e-3, epochs=10):
     model, transforms = load_pretrained_vit(num_classes=len(class_names), device=device)
 
     # Create dataloaders
-    train_dataloader, _ = create_dataloaders(train_dir, None, transform=transforms, batch_size=batch_size)
+    train_dataloader, _ = create_dataloaders(train_dir=train_dir, transform=transforms, batch_size=batch_size)
 
     # Setup optimizer and loss function
     optimizer = torch.optim.Adam(params=model.parameters(), lr=lr)
@@ -74,7 +80,7 @@ def test_model(test_dir, class_names, model):
     _, transforms = load_pretrained_vit(num_classes=len(class_names), device=device)
 
     # Create dataloaders
-    _, test_dataloader = create_dataloaders(None, test_dir, transform=transforms, batch_size=32)
+    _, test_dataloader = create_dataloaders(test_dir=test_dir, transform=transforms, batch_size=32)
 
     # Evaluate the model
     test_acc = engine.evaluate(model, test_dataloader, loss_fn=None, device=device)
@@ -83,16 +89,15 @@ def test_model(test_dir, class_names, model):
 
 # Example of how to use this module
 if __name__ == "__main__":
-    train_dir = 'path_to_train_dir'
-    test_dir = 'path_to_test_dir'
-    class_names = ['class1', 'class2']
+    train_dir = '/content/drive/MyDrive/ML dataset/custom_dataset/train'
+    test_dir = '/content/drive/MyDrive/ML dataset/custom_dataset/val'
+    class_names = ["Cat", "Dog"]
 
     # Training
     train_accuracy = train_model(train_dir, class_names)
     print(f"Training Accuracy: {train_accuracy:.2f}%")
 
     # Testing
-    # Assuming you want to use the same model trained above for testing
     model, _ = load_pretrained_vit(num_classes=len(class_names), device="cuda" if torch.cuda.is_available() else "cpu")
     test_accuracy = test_model(test_dir, class_names, model)
     print(f"Test Accuracy: {test_accuracy:.2f}%")
