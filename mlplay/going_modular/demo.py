@@ -97,4 +97,20 @@ def test_model(test_dir, class_names, model):
 
     return test_acc
 
-#nothing
+# Example of how to use this module
+if __name__ == "__main__":
+    train_dir = '/content/drive/MyDrive/ML dataset/custom_dataset/train'
+    test_dir = '/content/drive/MyDrive/ML dataset/custom_dataset/val'
+    class_names = ["Cat", "Dog"]
+
+    # Training
+    train_accuracy = train_model(train_dir, class_names)
+    print(f"Training Accuracy: {train_accuracy:.2f}%")
+
+    # Testing
+    model, _ = load_pretrained_vit(num_classes=len(class_names), device="cuda" if torch.cuda.is_available() else "cpu")
+    test_accuracy = test_model(test_dir, class_names, model)
+    print(f"Test Accuracy: {test_accuracy:.2f}%")
+
+
+#nothingisdone
