@@ -96,3 +96,5 @@ def test_model(test_dir, class_names, model):
     test_acc = engine.evaluate(model, test_dataloader, loss_fn=None, device=device)
 
     return test_acc
+
+#nothing
