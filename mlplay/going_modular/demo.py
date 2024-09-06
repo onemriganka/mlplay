@@ -4,8 +4,8 @@ import torchvision
 from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-from helper_functions import set_seeds, plot_loss_curves
-import engine
+from mlplay.going_modular.helper_functions import set_seeds, plot_loss_curves
+from mlplay.going_modular import engine
 
 def load_pretrained_vit(num_classes, device):
     """Load and return a pretrained ViT model with a modified classification head."""
