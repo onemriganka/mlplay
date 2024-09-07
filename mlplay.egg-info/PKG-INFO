@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: mlplay
-Version: 0.0.0
+Version: 0.0.10
 Summary: mlplay
 Author: onemriganka
 Keywords: ml,onemriganka,codes
@@ -12,5 +12,8 @@ Classifier: Operating System :: MacOS :: MacOS X
 Classifier: Operating System :: Microsoft :: Windows
 Description-Content-Type: text/markdown
 License-File: LICENSE
+Requires-Dist: torch
+Requires-Dist: matplotlib
+Requires-Dist: torchvision
 
-highlevel ml codes
+radip development of models 
